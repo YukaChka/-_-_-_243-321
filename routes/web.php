@@ -8,7 +8,7 @@ use App\Http\Controllers\ArticleController;
 Route::get('/', [maincontroller::class, 'index']);
 Route::get('/gallery/{id}', [maincontroller::class, 'gallery']);
 
-Route::get('/articles', [ArticleController::class, 'index']);
+Route::resource('articles', ArticleController::class);
 
 Route::get('/signin', [authcontroller::class, 'create']);
 Route::post('/signin', [authcontroller::class, 'registration']);

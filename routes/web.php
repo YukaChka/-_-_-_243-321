@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\maincontroller;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [maincontroller::class, 'index']);
+Route::get('/gallery/{id}', [maincontroller::class, 'gallery']);
 
 Route::get('/about', function () {
     return view('about');

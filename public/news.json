@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "title": "Запуск новой космической миссии",
+        "description": "Ракета успешно стартовала с космодрома и вышла на заданную орбиту.",
+        "preview_image": "images/news1_preview.png",
+        "full_image": "images/news1_full.jpg"
+    },
+    {
+        "id": 2,
+        "title": "Чемпионат мира по футболу 2026",
+        "description": "Объявлен состав сборных, которые примут участие в турнире следующего года.",
+        "preview_image": "images/news2_preview.jpg",
+        "full_image": "images/news2_full.jpg"
+    },
+    {
+        "id": 3,
+        "title": "Новые технологии в медицине",
+        "description": "Учёные разработали метод ранней диагностики онкологических заболеваний.",
+        "preview_image": "images/news3_preview.jpg",
+        "full_image": "images/news3_preview.jpg"
+    }
+]

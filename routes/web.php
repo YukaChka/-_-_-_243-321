@@ -3,9 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\maincontroller;
 use App\Http\Controllers\authcontroller;
+use App\Http\Controllers\ArticleController;
 
 Route::get('/', [maincontroller::class, 'index']);
 Route::get('/gallery/{id}', [maincontroller::class, 'gallery']);
+
+Route::get('/articles', [ArticleController::class, 'index']);
 
 Route::get('/signin', [authcontroller::class, 'create']);
 Route::post('/signin', [authcontroller::class, 'registration']);

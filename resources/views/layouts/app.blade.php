@@ -67,6 +67,7 @@
         <a href="{{ url('/') }}">Главная</a>
         <a href="{{ url('/about') }}">О нас</a>
         <a href="{{ url('/contacts') }}">Контакты</a>
+        <a href="{{ url('/signin') }}">Регистрация</a>
     </nav>
 </header>
 

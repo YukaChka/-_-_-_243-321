@@ -3,10 +3,12 @@
 @section('content')
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
         <h2>Статьи</h2>
-        <a href="{{ route('articles.create') }}"
-           style="background: #2c3e50; color: #fff; padding: 10px 18px; border-radius: 6px; text-decoration: none; font-size: 14px;">
-            + Добавить статью
-        </a>
+        @can('create', App\Models\Article::class)
+            <a href="{{ route('articles.create') }}"
+               style="background: #2c3e50; color: #fff; padding: 10px 18px; border-radius: 6px; text-decoration: none; font-size: 14px;">
+                + Добавить статью
+            </a>
+        @endcan
     </div>
 
     @if(session('success'))
@@ -32,19 +34,23 @@
                        style="color: #2980b9; font-size: 13px; text-decoration: none; border: 1px solid #2980b9; padding: 5px 12px; border-radius: 4px;">
                         Читать
                     </a>
-                    <a href="{{ route('articles.edit', $article) }}"
-                       style="color: #f39c12; font-size: 13px; text-decoration: none; border: 1px solid #f39c12; padding: 5px 12px; border-radius: 4px;">
-                        Редактировать
-                    </a>
-                    <form action="{{ route('articles.destroy', $article) }}" method="POST"
-                          onsubmit="return confirm('Удалить статью?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                                style="color: #e74c3c; font-size: 13px; background: none; border: 1px solid #e74c3c; padding: 5px 12px; border-radius: 4px; cursor: pointer;">
-                            Удалить
-                        </button>
-                    </form>
+                    @can('update', $article)
+                        <a href="{{ route('articles.edit', $article) }}"
+                           style="color: #f39c12; font-size: 13px; text-decoration: none; border: 1px solid #f39c12; padding: 5px 12px; border-radius: 4px;">
+                            Редактировать
+                        </a>
+                    @endcan
+                    @can('delete', $article)
+                        <form action="{{ route('articles.destroy', $article) }}" method="POST"
+                              onsubmit="return confirm('Удалить статью?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                    style="color: #e74c3c; font-size: 13px; background: none; border: 1px solid #e74c3c; padding: 5px 12px; border-radius: 4px; cursor: pointer;">
+                                Удалить
+                            </button>
+                        </form>
+                    @endcan
                 </div>
             </div>
         </div>

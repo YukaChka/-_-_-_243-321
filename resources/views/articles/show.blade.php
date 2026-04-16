@@ -19,20 +19,22 @@
             Опубликовано: {{ $article->created_at->format('d.m.Y H:i') }}
         </p>
 
-        <div style="margin-top: 20px; display: flex; gap: 12px;">
-            <a href="{{ route('articles.edit', $article) }}"
-               style="color: #f39c12; border: 1px solid #f39c12; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px;">
-                Редактировать
-            </a>
-            <form action="{{ route('articles.destroy', $article) }}" method="POST"
-                  onsubmit="return confirm('Удалить статью?')">
-                @csrf
-                @method('DELETE')
-                <button type="submit"
-                        style="color: #e74c3c; border: 1px solid #e74c3c; background: none; padding: 8px 16px; border-radius: 6px; font-size: 14px; cursor: pointer;">
-                    Удалить
-                </button>
-            </form>
-        </div>
+        @can('update', $article)
+            <div style="margin-top: 20px; display: flex; gap: 12px;">
+                <a href="{{ route('articles.edit', $article) }}"
+                   style="color: #f39c12; border: 1px solid #f39c12; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px;">
+                    Редактировать
+                </a>
+                <form action="{{ route('articles.destroy', $article) }}" method="POST"
+                      onsubmit="return confirm('Удалить статью?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                            style="color: #e74c3c; border: 1px solid #e74c3c; background: none; padding: 8px 16px; border-radius: 6px; font-size: 14px; cursor: pointer;">
+                        Удалить
+                    </button>
+                </form>
+            </div>
+        @endcan
     </div>
 @endsection

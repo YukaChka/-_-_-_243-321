@@ -68,6 +68,9 @@
         <a href="{{ url('/about') }}">О нас</a>
         <a href="{{ url('/contacts') }}">Контакты</a>
         <a href="{{ url('/articles') }}">Статьи</a>
+        @can('create', App\Models\Article::class)
+            <a href="{{ route('articles.create') }}">Создать статью</a>
+        @endcan
         @auth
             <span style="color: #bdc3c7; font-size: 14px;">{{ Auth::user()->name }}</span>
             <form action="{{ route('logout') }}" method="POST" style="display: inline;">

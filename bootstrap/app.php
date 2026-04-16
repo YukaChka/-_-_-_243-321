@@ -1,8 +1,10 @@
 <?php
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,5 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->render(function (AuthorizationException $e, Request $request) {
+            $message = $e->getMessage() ?: 'У вас нет прав для выполнения этого действия.';
+            return response()->view('errors.403', ['message' => $message], 403);
+        });
     })->create();

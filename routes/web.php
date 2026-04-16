@@ -8,10 +8,19 @@ use App\Http\Controllers\ArticleController;
 Route::get('/', [maincontroller::class, 'index']);
 Route::get('/gallery/{id}', [maincontroller::class, 'gallery']);
 
-Route::resource('articles', ArticleController::class);
+// Регистрация
+Route::get('/register', [authcontroller::class, 'showRegister'])->name('register');
+Route::post('/register', [authcontroller::class, 'register']);
 
-Route::get('/signin', [authcontroller::class, 'create']);
-Route::post('/signin', [authcontroller::class, 'registration']);
+// Авторизация
+Route::get('/login', [authcontroller::class, 'showLogin'])->name('login');
+Route::post('/login', [authcontroller::class, 'login'])->name('login.post');
+
+// Выход
+Route::post('/logout', [authcontroller::class, 'logout'])->name('logout');
+
+// Статьи — защищены middleware auth:sanctum
+Route::resource('articles', ArticleController::class)->middleware('auth:sanctum');
 
 Route::get('/about', function () {
     return view('about');

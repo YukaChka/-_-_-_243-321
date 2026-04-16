@@ -68,7 +68,19 @@
         <a href="{{ url('/about') }}">О нас</a>
         <a href="{{ url('/contacts') }}">Контакты</a>
         <a href="{{ url('/articles') }}">Статьи</a>
-        <a href="{{ url('/signin') }}">Регистрация</a>
+        @auth
+            <span style="color: #bdc3c7; font-size: 14px;">{{ Auth::user()->name }}</span>
+            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                @csrf
+                <button type="submit"
+                        style="background: none; border: none; color: #ecf0f1; font-size: 16px; cursor: pointer; padding: 0; margin-left: 16px;">
+                    Выйти
+                </button>
+            </form>
+        @else
+            <a href="{{ route('login') }}">Войти</a>
+            <a href="{{ route('register') }}">Регистрация</a>
+        @endauth
     </nav>
 </header>
 

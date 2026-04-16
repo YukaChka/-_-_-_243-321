@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\maincontroller;
 use App\Http\Controllers\authcontroller;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CommentController;
 
 Route::get('/', [maincontroller::class, 'index']);
 Route::get('/gallery/{id}', [maincontroller::class, 'gallery']);
@@ -18,9 +19,16 @@ Route::post('/login', [authcontroller::class, 'login'])->name('login.post');
 
 // Выход
 Route::post('/logout', [authcontroller::class, 'logout'])->name('logout');
+Route::get('/logout', fn() => redirect('/'));
 
 // Статьи — защищены middleware auth:sanctum
 Route::resource('articles', ArticleController::class)->middleware('auth:sanctum');
+
+// Комментарии
+Route::post('/articles/{article}/comments', [CommentController::class, 'store'])->name('comments.store')->middleware('auth:sanctum');
+Route::post('/comments/{comment}/approve', [CommentController::class, 'approve'])->name('comments.approve')->middleware('auth:sanctum');
+Route::delete('/comments/{comment}', [CommentController::class, 'reject'])->name('comments.reject')->middleware('auth:sanctum');
+Route::get('/moderation/comments', [CommentController::class, 'moderation'])->name('comments.moderation')->middleware('auth:sanctum');
 
 Route::get('/about', function () {
     return view('about');

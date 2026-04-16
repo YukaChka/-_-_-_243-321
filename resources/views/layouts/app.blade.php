@@ -70,6 +70,7 @@
         <a href="{{ url('/articles') }}">Статьи</a>
         @can('create', App\Models\Article::class)
             <a href="{{ route('articles.create') }}">Создать статью</a>
+            <a href="{{ route('comments.moderation') }}">Модерация</a>
         @endcan
         @auth
             <span style="color: #bdc3c7; font-size: 14px;">{{ Auth::user()->name }}</span>

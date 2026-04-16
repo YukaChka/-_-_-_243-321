@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ArticleCreated;
+use App\Jobs\VeryLongJob;
 use App\Models\Article;
-use App\Models\Role;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class ArticleController extends Controller
 {
@@ -39,14 +36,8 @@ class ArticleController extends Controller
 
         $article = Article::create($validated);
 
-        // Уведомляем всех модераторов по email
-        $moderatorRole = Role::where('name', 'moderator')->first();
-        if ($moderatorRole) {
-            $moderators = User::where('role_id', $moderatorRole->id)->get();
-            foreach ($moderators as $moderator) {
-                Mail::to($moderator->email)->send(new ArticleCreated($article));
-            }
-        }
+        // Помещаем отправку письма в очередь
+        VeryLongJob::dispatch($article);
 
         return redirect()->route('articles.index')->with('success', 'Статья успешно создана!');
     }
